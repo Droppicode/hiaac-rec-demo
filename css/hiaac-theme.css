@@ -1,0 +1,215 @@
+/* =============================================================================
+   H.IAAC Toolkit — shared theme
+   Source of truth: shared/hiaac-theme/web. Copied into each tool by
+   shared/hiaac-theme/sync.sh; edit here, then run the script.
+   ============================================================================= */
+
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("../assets/fonts/jetbrains-mono-400.woff2") format("woff2"), url("fonts/jetbrains-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("../assets/fonts/jetbrains-mono-500.woff2") format("woff2"), url("fonts/jetbrains-mono-500.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("../assets/fonts/jetbrains-mono-700.woff2") format("woff2"), url("fonts/jetbrains-mono-700.woff2") format("woff2"); }
+
+/* ---- Tokens : light (default) --------------------------------------------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --paper:      #f4f0e9;
+  --paper-2:    #fbf9f4;
+  --paper-3:    #efeae0;
+  --stage:      #131210;
+
+  --ink:        #1d1a16;
+  --ink-2:      #6c675e;
+  --ink-3:      #a39d92;
+
+  --line:       #e2dccf;
+  --line-2:     #d3ccba;
+
+  --orange:     #ff9d1c;
+  --orange-hi:  #fbbe6e;
+  --orange-bg:  rgba(255, 157, 28, .10);
+  --accent:     var(--orange);
+  --muted:      var(--ink-3);
+
+  --indigo:     #5750c4;
+  --indigo-hi:  #4942ad;
+  --indigo-bg:  rgba(87, 80, 196, .10);
+
+  --sage:       #5d7f4c;
+  --sage-hi:    #4d6c3e;
+  --sage-bg:    rgba(93, 127, 76, .12);
+
+  --blue:       #3a6db0;
+  --red:        #b8392b;
+  --amber:      #c98a1e;
+
+  --on-accent:  #ffffff;
+  --grain-op:   .035;
+  --shadow:     0 1px 0 rgba(0,0,0,.02), 0 8px 24px -18px rgba(40,30,15,.45);
+
+  --font-sans:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --radius:     3px;   /* buttons, inputs, chips */
+  --radius-lg:  4px;   /* cards, panels */
+  --header-h:   56px;
+}
+
+/* ---- Tokens : dark -------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:      #15140f;
+  --paper-2:    #1d1b15;
+  --paper-3:    #26231b;
+  --stage:      #000000;
+
+  --ink:        #efe9dc;
+  --ink-2:      #a39d8f;
+  --ink-3:      #6f6a5d;
+
+  --line:       #2c2920;
+  --line-2:     #3a362b;
+
+  --orange:     #ff9d1c;
+  --orange-hi:  #fbbe6e;
+  --orange-bg:  rgba(255, 157, 28, .14);
+
+  --indigo:     #8d86f0;
+  --indigo-hi:  #a39df5;
+  --indigo-bg:  rgba(141, 134, 240, .15);
+
+  --sage:       #8fb277;
+  --sage-hi:    #a4c48d;
+  --sage-bg:    rgba(143, 178, 119, .16);
+
+  --blue:       #6ba0e0;
+  --red:        #e06a5b;
+  --amber:      #e0b257;
+
+  --on-accent:  #15140f;
+  --grain-op:   .05;
+  --shadow:     0 1px 0 rgba(0,0,0,.3), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+
+/* ---- Base ----------------------------------------------------------------- */
+.hx-body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+.hx-body ::selection { background: var(--orange-bg); }
+
+/* ---- Header : logo · tool name · controls --------------------------------- */
+.hx-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: var(--header-h);
+  padding: 0 16px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--line-2);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+.hx-brand {
+  display: flex; align-items: center; gap: 12px;
+  min-width: max-content; color: inherit; text-decoration: none;
+}
+.hx-logo { height: 42px; width: auto; display: block; }
+[data-theme="dark"] .hx-logo { filter: brightness(1.55); }
+.hx-sep  { width: 1px; height: 28px; background: var(--line-2); flex: 0 0 auto; }
+.hx-tool { display: flex; flex-direction: column; line-height: 1.1; }
+.hx-tool-title { font-weight: 700; font-size: 13px; letter-spacing: .02em; text-transform: uppercase; }
+.hx-tool-sub {
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); margin-top: 3px;
+}
+.hx-header-spacer { flex: 1 1 auto; }
+.hx-header-actions { display: flex; align-items: center; gap: 10px; }
+
+/* ---- Labels --------------------------------------------------------------- */
+.hx-label {
+  display: block;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 5px;
+}
+
+/* ---- Buttons -------------------------------------------------------------- */
+.hx-btn {
+  height: 30px; padding: 0 14px;
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  white-space: nowrap; cursor: pointer; text-decoration: none;
+  transition: background .12s, border-color .12s, color .12s, transform .06s;
+  box-sizing: border-box;
+}
+.hx-btn:hover { background: var(--paper-3); }
+.hx-btn:active { transform: translateY(1px); }
+.hx-btn:disabled, .hx-btn[disabled] { opacity: .4; cursor: not-allowed; transform: none; }
+
+.hx-btn--primary { background: var(--orange); border-color: var(--orange); color: var(--on-accent); }
+.hx-btn--primary:hover { background: var(--orange-hi); border-color: var(--orange-hi); }
+.hx-btn--indigo  { background: var(--indigo); border-color: var(--indigo); color: var(--on-accent); }
+.hx-btn--indigo:hover { background: var(--indigo-hi); border-color: var(--indigo-hi); }
+.hx-btn--sage    { background: var(--sage-bg); border-color: color-mix(in srgb, var(--sage) 45%, transparent); color: var(--sage-hi); }
+.hx-btn--sage:hover { background: color-mix(in srgb, var(--sage) 22%, transparent); }
+.hx-btn--danger  { background: transparent; border-color: color-mix(in srgb, var(--red) 50%, transparent); color: var(--red); }
+.hx-btn--danger:hover { background: color-mix(in srgb, var(--red) 12%, transparent); }
+.hx-btn--lg { height: 36px; font-size: 12.5px; padding: 0 18px; }
+.hx-btn--block { width: 100%; }
+
+.hx-icon-btn {
+  width: 30px; height: 30px; padding: 0;
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink-2);
+  display: inline-grid; place-items: center; font-size: 14px; cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.hx-icon-btn:hover { background: var(--paper-3); color: var(--ink); }
+
+/* ---- Inputs --------------------------------------------------------------- */
+.hx-field {
+  height: 30px; padding: 0 10px;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: 12px;
+  outline: none; box-sizing: border-box;
+  transition: border-color .12s, box-shadow .12s;
+}
+.hx-field:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-bg); }
+.hx-field::placeholder { color: var(--ink-3); }
+
+/* ---- Cards / panels ------------------------------------------------------- */
+.hx-card {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+}
+.hx-card-title {
+  margin: 0 0 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ---- Footer --------------------------------------------------------------- */
+.hx-footer {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line-2);
+  background: var(--paper-2);
+  color: var(--ink-3);
+  font-size: 11px;
+}
+.hx-footer a { color: var(--ink-2); text-decoration: none; }
+.hx-footer a:hover { color: var(--orange); }

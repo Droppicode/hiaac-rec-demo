@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIAAC-Rec | Synchronized Multimodal Dataset Toolkit</title>
+  <meta name="description" content="Research presentation and interactive dataset flow for HIAAC-Rec: An open-source toolkit for synchronized multimodal data collection, annotation, and face anonymization." />
+  <link rel="icon" type="image/svg+xml" href="assets/images/hiaac-logo.svg" />
+  <link rel="stylesheet" href="css/landing.css?v=3.2" />
+  <link rel="stylesheet" href="css/interactive-demo.css?v=3.2" />
+</head>
+<body class="hx-body">
+
+  <!-- ====================== NAVBAR ====================== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <img src="assets/images/hiaac-logo.svg" alt="H.IAAC Logo" class="nav-logo" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">HIAAC-REC</span>
+          <span class="nav-brand-sub" data-i18n="nav.brandSub">Research Presentation</span>
+        </div>
+      </a>
+
+      <nav class="nav-wrapper">
+        <ul class="nav-menu">
+          <li><a href="#hero" class="nav-link active" data-i18n="nav.overview">Overview</a></li>
+          <li><a href="#interactive-demo" class="nav-link" data-i18n="nav.demo">Interactive Demo</a></li>
+          <li><a href="#architecture" class="nav-link" data-i18n="nav.arch">Architecture</a></li>
+          <li><a href="#validation" class="nav-link" data-i18n="nav.validation">Validation</a></li>
+          <li><a href="#reproducibility" class="nav-link" data-i18n="nav.code">Paper &amp; Code</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher (EN default / PT) -->
+        <button id="lang-toggle-btn" class="lang-toggle-btn" title="Switch Language / Mudar Idioma" aria-label="Switch Language / Mudar Idioma">
+          <span class="lang-tag active" data-lang="en">EN</span>
+          <span class="lang-sep">/</span>
+          <span class="lang-tag" data-lang="pt">PT</span>
+        </button>
+
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Light/Dark Theme">◐</button>
+        <button id="nav-open-demo-btn" class="hx-btn hx-btn--primary nav-cta-btn" data-i18n="nav.demoBtn">Interactive Demo ▾</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== PAPER HEADER / HERO SECTION ====================== -->
+  <section class="paper-header" id="hero">
+    <div class="container">
+      <div class="paper-badge-pill">
+        <span class="paper-dot"></span>
+        <span data-i18n="hero.badge">Research Paper Presentation • Open-Source Academic Toolkit</span>
+      </div>
+
+      <h1 class="paper-title">
+        <span class="paper-title-highlight" data-i18n="hero.titleHighlight">HIAAC-Rec:</span> 
+        <span data-i18n="hero.titleRest">An Open-Source Toolkit for Synchronized Multimodal Data Collection, Annotation, and Face Anonymization</span>
+      </h1>
+
+      <div class="authors-list">
+        <span>Beatriz V. P. Moura<sup>1,2</sup>,</span>
+        <span>Marcos M. Nunes<sup>1,2</sup>,</span>
+        <span>Gustavo P. C. P. da Luz<sup>1,2</sup>,</span>
+        <span>Miguel B. Simões<sup>1,2</sup>,</span>
+        <span>Victor Wu<sup>1,2</sup>,</span>
+        <span>Nicolas H. Silva<sup>1,2</sup>,</span>
+        <span>Jaime A. D. Vargas<sup>1,2</sup>,</span>
+        <span>Amparo D. Muñoz<sup>1,3</sup>,</span>
+        <span>Saulo A. Moraes<sup>1,3</sup>,</span>
+        <span>Felipe A. de Paula Santos<sup>1,3</sup>,</span>
+        <span>Fabio Grassiotto<sup>1,3</sup>,</span>
+        <span>Anderson Rocha<sup>1,2</sup>,</span>
+        <span>Levy Boccato<sup>1,2</sup>,</span>
+        <span>Edson Borin<sup>1,2,*</sup></span>
+      </div>
+
+      <div class="affiliations-list">
+        <div data-i18n="hero.affil1"><sup>1</sup>Hub for Artificial Intelligence and Cognitive Architectures (H.IAAC), Campinas, Brazil</div>
+        <div><span data-i18n="hero.affil2"><sup>2</sup>University of Campinas (UNICAMP), Campinas, Brazil</span> &nbsp;•&nbsp; <span data-i18n="hero.affil3"><sup>3</sup>Instituto de Pesquisas Eldorado, Campinas, Brazil</span></div>
+        <div data-i18n="hero.corrAuthor">*Corresponding author: <code>borin@unicamp.br</code></div>
+      </div>
+
+      <!-- Abstract Box -->
+      <div class="abstract-box">
+        <div class="abstract-title" data-i18n="hero.abstractTag">Abstract</div>
+        <p class="abstract-content" data-i18n="hero.abstractText">
+          This work presents <strong>HIAAC-Rec</strong>, an open-source toolkit for building high-quality multimodal datasets 
+          for Human Activity Recognition (HAR). Unlike prior work, which mostly releases only the collected dataset or lightweight 
+          pre-processing scripts, the proposed toolkit integrates, in a single pipeline: a smartphone-based data acquisition application, 
+          a server-side backend for data synchronization and processing, a face-masking anonymization application, an interactive time-series 
+          labeling interface, and a multi-annotator visualization interface. The toolkit was validated with six smartphones producing 
+          45 sensor channels at 10 and 100 Hz alongside 30 fps video. Experiments demonstrate an inter-device lag below half a sampling period 
+          (largest absolute mean lag of <strong>3.75 ms</strong> with no relative drift), and face anonymization achieving <strong>94.59% automatic masking coverage</strong>, 
+          reaching full agreement through manual auditing across 25 annotated videos.
+        </p>
+      </div>
+
+      <div class="paper-actions">
+        <button id="btn-hero-launch-demo" class="hx-btn hx-btn--primary hx-btn--lg">
+          <span data-i18n="hero.btnDemo">⚡ Launch Interactive Demo</span>
+          <span>➜</span>
+        </button>
+        <a href="#validation" class="hx-btn hx-btn--lg">
+          <span data-i18n="hero.btnVal">📊 Empirical Validation</span>
+        </a>
+        <a href="#reproducibility" class="hx-btn hx-btn--lg">
+          <span data-i18n="hero.btnCode">📑 Paper &amp; Code</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== INTERACTIVE DATASET FLOW SECTION ====================== -->
+  <section class="section demo-section section--alt" id="interactive-demo">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="launcher.tag">Interactive Demo</span>
+        <h2 class="section-title" data-i18n="launcher.title">End-to-End Multimodal Pipeline</h2>
+        <p class="section-subtitle" data-i18n="launcher.subtitle">
+          Session: <code>eval [all] [02]</code> &bull; Evaluated activities: <strong>VERTICAL</strong> and <strong>HORIZONTAL</strong> &bull; Annotators: <strong>lab 1</strong>, <strong>lab 2</strong>, and <strong>lab 3</strong>.
+          Experience the complete workflow from mobile sensor collection to face anonymization, ends-at labeling, and multi-annotator consensus.
+        </p>
+      </div>
+
+      <!-- Playable Preview Card that launches the Fullscreen Modal -->
+      <div class="demo-launcher-card" id="demo-launcher-trigger" role="button" tabindex="0" title="Click to open fullscreen interactive demo" aria-label="Launch interactive demo">
+        <div class="launcher-header">
+          <div class="launcher-tag">
+            <span class="paper-dot"></span>
+            <span data-i18n="launcher.sessionBadge">Session: <strong>eval [all] [02]</strong> &bull; Subject 02 (eval) &bull; 100 Hz</span>
+          </div>
+          <span class="launcher-fullscreen-hint" data-i18n="launcher.clickHint">⛶ Click to Launch Demo</span>
+        </div>
+
+        <!-- Prominent Playable Viewport with Centered Play Button -->
+        <div class="launcher-preview-viewport">
+          <div class="launcher-preview-bg-waves"></div>
+          <div class="launcher-preview-mockup-glimpse">
+            <img src="assets/images/eval02_poster_raw_smiley.jpg" alt="Preview Frame" style="width:130px; height:170px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.18);" />
+            <div style="width:250px; height:130px; background:rgba(14,18,26,0.65); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:12px; display:flex; flex-direction:column; justify-content:center; gap:6px;">
+              <div style="font-size:10.5px; color:#ff9d1c; font-family:var(--font-mono); font-weight:700;">IMU 3-AXIS STREAM (100 Hz)</div>
+              <div style="height:3px; background:#ff9d1c; width:85%; border-radius:2px;"></div>
+              <div style="height:3px; background:#38bdf8; width:70%; border-radius:2px;"></div>
+              <div style="height:3px; background:#a855f7; width:92%; border-radius:2px;"></div>
+            </div>
+          </div>
+          <div class="launcher-play-overlay">
+            <div class="launcher-play-circle">
+              <span class="launcher-play-triangle">▶</span>
+            </div>
+            <span class="launcher-play-text" data-i18n="launcher.playBtn">▶ Launch Interactive Demo</span>
+            <span class="launcher-play-subtext" data-i18n="launcher.clickHint">Click anywhere to open the simulation</span>
+          </div>
+        </div>
+
+        <div class="launcher-stepper-preview">
+          <div class="launcher-step-item">
+            <span class="l-badge">1</span>
+            <div class="l-text">
+              <span class="l-num" data-i18n="modal.step1Num">Step 01</span>
+              <span class="l-name" data-i18n="launcher.step1">Mobile App</span>
+            </div>
+          </div>
+          <div class="launcher-arrow">➜</div>
+          <div class="launcher-step-item">
+            <span class="l-badge">2</span>
+            <div class="l-text">
+              <span class="l-num" data-i18n="modal.step2Num">Step 02</span>
+              <span class="l-name" data-i18n="launcher.step2">Masking Studio</span>
+            </div>
+          </div>
+          <div class="launcher-arrow">➜</div>
+          <div class="launcher-step-item">
+            <span class="l-badge">3</span>
+            <div class="l-text">
+              <span class="l-num" data-i18n="modal.step3Num">Step 03</span>
+              <span class="l-name" data-i18n="launcher.step3">Labeler</span>
+            </div>
+          </div>
+          <div class="launcher-arrow">➜</div>
+          <div class="launcher-step-item">
+            <span class="l-badge">4</span>
+            <div class="l-text">
+              <span class="l-num" data-i18n="modal.step4Num">Step 04</span>
+              <span class="l-name" data-i18n="launcher.step4">Viewer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="launcher-cta-area">
+          <p class="launcher-description" data-i18n="launcher.desc">
+            Launch the simulation running on real 100 Hz inertial streams and synchronized camera video from evaluation session <code>eval [all] [02]</code>. 
+            Test face anonymization styles (blur, pixelate, solid), mark activity initiation (-1) and termination on the waveform, and compute multi-annotator consensus.
+          </p>
+          <button id="btn-open-demo-modal" class="hx-btn hx-btn--primary hx-btn--lg">
+            <span data-i18n="launcher.btnText">🚀 Launch Interactive Demo</span>
+            <span>➜</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FULLSCREEN INTERACTIVE DEMO MODAL ====================== -->
+  <div id="demo-modal-backdrop" class="demo-modal-backdrop" aria-modal="true" role="dialog">
+    <!-- Welcome Overlay Modal (Above Demo Window) -->
+    <div id="demo-intro-modal-backdrop" class="demo-intro-modal-backdrop" role="dialog" aria-modal="true">
+      <div class="demo-intro-modal-card">
+        <div class="intro-modal-header">
+          <div class="intro-modal-badge">
+            <span data-i18n="intro.sessionBadge">🎯 Test Session: eval [all] [02]</span>
+          </div>
+          <button id="btn-close-intro-modal" class="intro-modal-close-x" title="Close" aria-label="Close">&times;</button>
+        </div>
+
+        <h3 class="intro-modal-title" data-i18n="intro.title">HIAAC-Rec Interactive Demonstration</h3>
+        
+        <p class="intro-modal-desc" data-i18n="intro.desc">
+          You are about to experience the complete multimodal pipeline of the toolkit using a real validation recording session. The walkthrough covers each phase of the research data lifecycle:
+        </p>
+
+        <!-- Pipeline Steps visual cards -->
+        <div class="intro-pipeline-steps">
+          <div class="intro-step-pill">
+            <span class="intro-step-num">1</span>
+            <div class="intro-step-content">
+              <strong data-i18n="intro.step1Title">Mobile Collection</strong>
+              <span data-i18n="intro.step1Sub">App • 100 Hz</span>
+            </div>
+          </div>
+          <div class="intro-step-arrow">➜</div>
+          <div class="intro-step-pill">
+            <span class="intro-step-num">2</span>
+            <div class="intro-step-content">
+              <strong data-i18n="intro.step2Title">Masking</strong>
+              <span data-i18n="intro.step2Sub">Face Anonymization</span>
+            </div>
+          </div>
+          <div class="intro-step-arrow">➜</div>
+          <div class="intro-step-pill">
+            <span class="intro-step-num">3</span>
+            <div class="intro-step-content">
+              <strong data-i18n="intro.step3Title">Labeler</strong>
+              <span data-i18n="intro.step3Sub">Ends-at Labeling</span>
+            </div>
+          </div>
+          <div class="intro-step-arrow">➜</div>
+          <div class="intro-step-pill">
+            <span class="intro-step-num">4</span>
+            <div class="intro-step-content">
+              <strong data-i18n="intro.step4Title">Viewer</strong>
+              <span data-i18n="intro.step4Sub">Consensus &amp; Export</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-modal-footer">
+          <span class="intro-hint-text" data-i18n="intro.hint">
+            💡 Follow the yellow highlighted guide at the top of each step to advance through the pipeline.
+          </span>
+          <button id="btn-start-demo-flow" class="hx-btn hx-btn--primary hx-btn--lg btn-start-demo-flow">
+            <span data-i18n="intro.startBtn">Start Demonstration ➜</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-modal-window">
+      <!-- Stepper Navigation + Close Action in the same top row -->
+      <div class="demo-stepper-row">
+        <nav class="demo-stepper" aria-label="Flow Steps">
+          <button class="step-tab active" data-step="1">
+            <span class="step-badge">1</span>
+            <div class="step-info">
+              <span class="step-num" data-i18n="modal.step1Num">Step 01</span>
+              <span class="step-title" data-i18n="modal.step1Title">HIAAC-Rec-App</span>
+            </div>
+          </button>
+
+          <button class="step-tab" data-step="2">
+            <span class="step-badge">2</span>
+            <div class="step-info">
+              <span class="step-num" data-i18n="modal.step2Num">Step 02</span>
+              <span class="step-title" data-i18n="modal.step2Title">Masking Studio</span>
+            </div>
+          </button>
+
+          <button class="step-tab" data-step="3">
+            <span class="step-badge">3</span>
+            <div class="step-info">
+              <span class="step-num" data-i18n="modal.step3Num">Step 03</span>
+              <span class="step-title" data-i18n="modal.step3Title">HIAAC-Rec-Labeler</span>
+            </div>
+          </button>
+
+          <button class="step-tab" data-step="4">
+            <span class="step-badge">4</span>
+            <div class="step-info">
+              <span class="step-num" data-i18n="modal.step4Num">Step 04</span>
+              <span class="step-title" data-i18n="modal.step4Title">HIAAC-Rec-Viewer</span>
+            </div>
+          </button>
+        </nav>
+
+        <div class="demo-header-actions">
+          <button id="demo-tour-toggle-btn" class="demo-tour-btn" title="Ativar ou desativar o guia passo a passo">
+            <span class="tour-btn-icon">💡</span>
+            <span class="tour-btn-text" data-i18n="modal.tourToggle">Modo Guiado</span>
+          </button>
+          <button id="demo-modal-close-btn" class="demo-stepper-close-btn" title="Close Demo (Esc)" aria-label="Close Demo">
+            <span data-i18n="modal.close">✕ Close</span>
+            <span class="close-esc-badge">(Esc)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Spotlight Layer & Stage Panes) -->
+      <div class="demo-modal-body">
+
+        <!-- Interactive Spotlight Guided Tour Layer -->
+        <div id="demo-spotlight-layer" class="demo-spotlight-layer" aria-hidden="true">
+          <div id="spotlight-hole" class="spotlight-hole">
+            <div class="spotlight-hole-ring"></div>
+          </div>
+          <div id="spotlight-popover" class="spotlight-popover" role="tooltip">
+            <div class="spotlight-popover-notch" id="spotlight-popover-notch"></div>
+            <div class="spotlight-popover-header">
+              <span class="spotlight-badge" id="spotlight-badge">PASSO 1 DE 4</span>
+              <button id="spotlight-close-btn" class="spotlight-close-btn" title="Fechar dica (Esc)">✕</button>
+            </div>
+            <h4 id="spotlight-title" class="spotlight-title">Iniciar Gravação Mobile</h4>
+            <p id="spotlight-desc" class="spotlight-desc">Clique no botão para simular a coleta dos sensores inerciais...</p>
+            <div class="spotlight-popover-footer">
+              <span class="spotlight-hint" id="spotlight-hint">👆 Clique no botão destacado</span>
+              <button id="spotlight-skip-btn" class="spotlight-skip-btn" style="display:none;">Próximo ➜</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage Body Panes -->
+        <div class="demo-stage-body">
+
+          <!-- -------------------------------------------------------------
+               STAGE 1: Phone Mockup (Android HIAAC-Rec App)
+               ------------------------------------------------------------- -->
+          <div class="stage-pane active" data-stage="1">
+            <div class="stage-phone-layout">
+              <!-- Smartphone Device Frame -->
+              <div class="phone-mockup">
+                <div class="phone-screen">
+                  <!-- Status Bar -->
+                  <div class="phone-status-bar">
+                    <span>10:55</span>
+                    <div class="phone-notch"></div>
+                    <span>5G  98% 🔋</span>
+                  </div>
+
+                  <!-- App Header -->
+                  <div class="phone-app-header">
+                    <div class="phone-brand">
+                      <img src="assets/images/hiaac-logo.svg" alt="HIAAC" class="phone-logo" />
+                      <span class="phone-app-title">HIAAC-REC</span>
+                    </div>
+                    <span style="font-size:10px; color:var(--sage-hi); font-weight:700;">● FLOW ON</span>
+                  </div>
+
+                  <!-- Phone Content -->
+                  <div class="phone-content">
+                    <!-- Server Status Card -->
+                    <div class="phone-server-card">
+                      <div class="phone-server-status">
+                        <span data-i18n="phone.serverOnline">SERVER: ONLINE</span>
+                        <span>HTTP :8080</span>
+                      </div>
+                      <div class="phone-server-ip"><span data-i18n="phone.dest">Target</span>: http://192.168.1.100:8080</div>
+                    </div>
+
+                    <!-- Sensor Chips -->
+                    <div>
+                      <div style="font-size:9.5px; font-weight:700; color:var(--ink-2); margin-bottom:4px;" data-i18n="phone.activeSensors">ACTIVE SENSORS (100 Hz)</div>
+                      <div class="phone-sensors-group">
+                        <span class="phone-sensor-chip active" data-i18n="phone.sensorAccel">✓ Accelerometer</span>
+                        <span class="phone-sensor-chip active" data-i18n="phone.sensorGyro">✓ Gyroscope</span>
+                        <span class="phone-sensor-chip active" data-i18n="phone.sensorLin">✓ Linear Accel.</span>
+                        <span class="phone-sensor-chip active" data-i18n="phone.sensorCam">✓ Camera (30fps)</span>
+                      </div>
+                    </div>
+
+                    <!-- Placement & Subject -->
+                    <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--ink-2);">
+                      <span><span data-i18n="phone.pos">Placement</span>: <strong>Right Hand</strong></span>
+                      <span><span data-i18n="phone.subj">Subject</span>: <strong>02 (eval)</strong></span>
+                    </div>
+
+                    <!-- Viewfinder / Camera Video -->
+                    <div class="phone-viewfinder">
+                      <video id="phone-camera-video" src="assets/videos/eval02_raw_smiley.mp4" poster="assets/images/eval02_poster_raw_smiley.jpg" playsinline muted loop></video>
+                      <div class="phone-viewfinder-overlay">
+                        <span id="phone-rec-badge" class="rec-badge" style="display:none;">
+                          <span class="rec-dot"></span>
+                          <span>REC 30FPS</span>
+                        </span>
+                        <span id="phone-rec-timer" style="font-family:var(--font-mono); font-weight:700;">00:00</span>
+                      </div>
+                    </div>
+
+                    <!-- Live Signal Waveform -->
+                    <div class="phone-signal-box">
+                      <div class="phone-signal-header">
+                        <span>IMU 3-AXIS STREAM</span>
+                        <span style="color:var(--orange)">X &bull; Y &bull; Z</span>
+                      </div>
+                      <canvas id="phone-signal-canvas" class="phone-signal-canvas" width="280" height="60"></canvas>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="phone-actions">
+                      <!-- Initial Start Recording Button -->
+                      <button id="btn-phone-record" class="btn-phone-record hotspot-target">
+                        <span class="hotspot-pulse"></span>
+                        <span data-i18n="phone.btnStart">● Start Recording</span>
+                      </button>
+
+                      <!-- In-Progress Controls (Pause & Stop) -->
+                      <div id="phone-recording-controls" class="phone-recording-controls" style="display:none;">
+                        <button id="btn-phone-pause" class="btn-phone-compact btn-phone-pause" data-i18n="phone.btnPause">⏸ Pause</button>
+                        <button id="btn-phone-stop" class="btn-phone-compact btn-phone-stop" data-i18n="phone.btnStop">⏹ Stop Recording</button>
+                      </div>
+
+                      <!-- Upload Button (Shown after stop, pause is hidden) -->
+                      <button id="btn-phone-upload" class="btn-phone-upload" style="display:none;">
+                        <span data-i18n="phone.btnUpload">📤 Send Session to Server</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Side Description & Functional Details -->
+              <div class="stage-side-panel">
+                <span class="section-tag" data-i18n="phone.tag">Stage 01 &bull; HIAAC-Rec-App</span>
+                <h3 class="stage-title" data-i18n="phone.title">Synchronized Mobile Acquisition</h3>
+                <p class="stage-desc" data-i18n="phone.desc">
+                  The Android application performs continuous acquisition of multiple inertial sensor streams 
+                  and synchronized video directly on the participant's smartphone, ensuring millisecond temporal precision and data integrity.
+                </p>
+
+                <ul class="stage-checklist">
+                  <li class="stage-check-item">
+                    <span class="stage-check-icon">✓</span>
+                    <span data-i18n="phone.f1"><strong>Simultaneous Multi-Sensor Streams:</strong> Real-time capture of Accelerometer, Gyroscope, Linear Acceleration (configured at 100 Hz for this experiment), and 30 FPS Camera video.</span>
+                  </li>
+                  <li class="stage-check-item">
+                    <span class="stage-check-icon">✓</span>
+                    <span data-i18n="phone.f2"><strong>Configurable Sampling Frequencies:</strong> Software polling rates from 1 Hz up to 200 Hz executed in dedicated high-priority threads (AIDL).</span>
+                  </li>
+                  <li class="stage-check-item">
+                    <span class="stage-check-icon">✓</span>
+                    <span data-i18n="phone.f3"><strong>Live Device Telemetry:</strong> Continuous monitoring of power consumption (mAh), battery level, temperature, and network link state.</span>
+                  </li>
+                  <li class="stage-check-item">
+                    <span class="stage-check-icon">✓</span>
+                    <span data-i18n="phone.f4"><strong>Fault-Tolerant Local Storage:</strong> Resilient local ring buffer protects against Wi-Fi drops, pushing consolidated packages upon session completion.</span>
+                  </li>
+                </ul>
+
+                <div style="font-size:11px; font-weight:700; color:var(--ink-2); margin-bottom:6px;" data-i18n="phone.logsTitle">ACQUISITION LOGS</div>
+                <div id="phone-event-log" class="stage-live-log">
+                  <div><span style="color:var(--ink-3)">[10:55:00]</span> Bound to HIAAC-Rec-SyncServer at 192.168.1.100:8080.</div>
+                  <div><span style="color:var(--ink-3)">[10:55:02]</span> Sensors configured (100 Hz). Click 'Start Recording'.</div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                  <button id="stage1-next-btn" class="hx-btn hx-btn--primary hx-btn--lg" style="display:none;">
+                    <span data-i18n="phone.btnAdvance">Advance to Stage 2: Face Masking Studio ➜</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------------------------------------------
+               STAGE 2: Face Masking Studio Mockup
+               ------------------------------------------------------------- -->
+          <div class="stage-pane" data-stage="2">
+            <div class="studio-window">
+              <!-- Header with Default Read-Only Parameters -->
+              <div class="studio-header">
+                <div class="studio-title-area">
+                  <img src="assets/images/hiaac-logo.svg" alt="HIAAC" style="height:26px;" />
+                  <span style="font-size:12px; font-weight:700; color:var(--ink);">HIAAC-REC MASKING STUDIO</span>
+                  <span style="font-size:10px; color:var(--ink-3);" data-i18n="mask.subTitle">| Anonymization Module</span>
+                </div>
+
+                <div class="studio-controls">
+                  <span class="studio-badge-fixed" data-i18n="mask.modelTag">Model: YOLOv7-tiny-head (ONNX, Default)</span>
+                  <span class="studio-badge-fixed" data-i18n="mask.detectTag">Detection: 1 fr</span>
+                  <span class="studio-badge-fixed" data-i18n="mask.padTag">Head Pad: 20%</span>
+                  <span class="studio-badge-fixed" data-i18n="mask.passTag">Pass 0: Automatic</span>
+                  <span style="font-size:10px; background:var(--orange-bg); color:var(--orange); padding:2px 8px; border-radius:3px; font-weight:700;">DATASET FLOW</span>
+                </div>
+              </div>
+
+              <!-- Main Body -->
+              <div class="studio-body">
+                <!-- Video Viewport -->
+                <div class="studio-viewport">
+                  <div class="studio-video-wrapper" style="position: relative; display: inline-block;">
+                    <video id="studio-video" src="assets/videos/eval02_raw_smiley.mp4" poster="assets/images/eval02_poster_raw_smiley.jpg" playsinline muted loop autoplay style="display:block; max-height:420px; width:auto; border-radius:4px;"></video>
+                    <!-- Draggable Face Bounding Box Overlay for Pass 0 -->
+                    <div id="face-box-overlay" class="face-box-overlay draggable-face-box" style="top: 0%; left: 56%; width: 24%; height: 21%;" title="Drag to adjust audit bounding box">
+                      <span class="face-box-label" data-i18n="mask.pass0Box">Pass 0: Tracked Region (YOLOv7-tiny)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Studio Sidebar -->
+                <div class="studio-sidebar">
+                  <div>
+                    <div class="hx-label" data-i18n="mask.panelSessionTitle">SESSION IN PROCESSING</div>
+                    <div style="font-size:11.5px; font-family:var(--font-mono); color:var(--ink); background:var(--paper-3); padding:6px 10px; border-radius:var(--radius); border:1px solid var(--line-2);">
+                      eval [all] [02] &bull; Subject 02
+                    </div>
+                  </div>
+
+                  <div class="studio-param-group" id="stage2-mask-style-group">
+                    <div class="hx-label" data-i18n="mask.panelStyleTitle">ANONYMIZATION MASK STYLE</div>
+                    <div class="radio-pills">
+                      <div class="radio-pill active" data-mask="blur" data-i18n="mask.styleBlur">Blur (Defocus)</div>
+                      <div class="radio-pill" data-mask="pixelate" data-i18n="mask.stylePixel">Pixelate (Mosaic)</div>
+                      <div class="radio-pill" data-mask="solid" data-i18n="mask.styleSolid">Solid Fill (Black Mask)</div>
+                    </div>
+                  </div>
+
+                  <div style="background:var(--paper-3); border:1px solid var(--line-2); border-radius:var(--radius); padding:10px; font-size:11px; color:var(--ink-2); line-height:1.5;" data-i18n="mask.boxDesc">
+                    💡 <strong>Automatic Detection:</strong> The server executed the YOLOv7-tiny ONNX detector upon video ingestion. The bounding box can be audited; rendering applies the chosen filter over the tracked coordinates.
+                  </div>
+
+                  <div>
+                    <button id="btn-run-masking" class="btn-run-masking hotspot-target">
+                      <span class="hotspot-pulse"></span>
+                      <span data-i18n="mask.btnRender">⚡ Render Anonymization</span>
+                    </button>
+                    <div id="masking-success-msg" class="masking-success-badge" style="display:none; margin-top:10px;" data-i18n="mask.successMsg">
+                      ✓ Video anonymized successfully (100% audited coverage).
+                    </div>
+                  </div>
+
+                  <div style="flex-grow:1; display:flex; flex-direction:column;">
+                    <div class="hx-label" data-i18n="mask.logsTitle">ANONYMIZATION SERVER LOGS</div>
+                    <div id="studio-terminal" class="stage-live-log" style="flex-grow:1; max-height:140px; font-size:10px;">
+                      <div>[Server] Video ingested from session eval [all] [02] (480x720, 30.0 fps).</div>
+                      <div>[Watchdog] Executing Pass 0 automatically with YOLOv7-tiny-head (local ONNX).</div>
+                      <div>[Privacy] 100% of frames tracked. Ready for rendering.</div>
+                    </div>
+                  </div>
+
+                  <button id="stage2-next-btn" class="hx-btn hx-btn--primary hx-btn--block" style="display:none;">
+                    <span data-i18n="mask.btnAdvance">Advance to Stage 3: HIAAC-Rec-Labeler ➜</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------------------------------------------
+               STAGE 3: HIAAC-Rec-Labeler (Annotation Interface)
+               ------------------------------------------------------------- -->
+          <div class="stage-pane" data-stage="3">
+            <div class="annotation-window">
+              <!-- Header -->
+              <div class="anno-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src="assets/images/hiaac-logo.svg" alt="HIAAC" style="height:24px;" />
+                  <span style="font-size:12px; font-weight:700;">HIAAC-REC LABELER</span>
+                  <span style="font-size:10px; color:var(--ink-3);" data-i18n="labeler.subTitle">| Synchronized Annotation</span>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:14px; font-size:11px;">
+                  <span data-i18n="labeler.sessionLabel">Session: <strong>eval [all] [02]</strong></span>
+                  <span data-i18n="labeler.sensorLabel">Sensor: <strong>Accelerometer_Right Hand.csv</strong></span>
+                  <span data-i18n="labeler.activeAnnotator">Active Annotator: <strong style="color:var(--orange)">lab 1 (You)</strong></span>
+                </div>
+              </div>
+
+              <!-- Main Grid -->
+              <div class="anno-grid">
+                <!-- Video Col -->
+                <div class="anno-video-pane">
+                  <div class="anno-video-box">
+                    <video id="anno-video" src="assets/videos/eval02_masked_blur.mp4" poster="assets/images/eval02_poster_masked_blur.jpg" playsinline muted loop></video>
+                  </div>
+
+                  <div class="anno-controls-bar">
+                    <div class="video-ctrl-top-row">
+                      <button id="anno-play-btn" class="btn-play-pause" title="Play / Pause">▶</button>
+                      <input type="range" id="anno-scrubber-slider" class="video-scrubber-slider" min="0" max="24" step="0.05" value="0" />
+                    </div>
+                    <div class="video-ctrl-time-row">
+                      <span class="ctrl-time-label" data-i18n="labeler.timeLabel">Time</span>
+                      <span id="anno-time-display" class="anno-time-display">00:00.0 / 00:24.0</span>
+                    </div>
+                  </div>
+
+                  <div style="font-size:11px; color:var(--ink-2); line-height:1.45; background:var(--paper); padding:10px; border-radius:var(--radius); border:1px solid var(--line-2);" data-i18n="labeler.syncCard">
+                    <strong>Synchronized Alignment:</strong> Anonymized video plays in exact synchrony with the inertial signal. The participant executes VERTICAL (1.6s to 11.0s) and then HORIZONTAL (13.0s to 23.0s).
+                  </div>
+                </div>
+
+                <!-- Plot & Annotation Col -->
+                <div class="anno-plot-pane">
+                  <div class="anno-toolbar">
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                      <span class="hx-label" style="margin-bottom:0;" data-i18n="labeler.activities">ACTIVITIES:</span>
+                      <div class="label-buttons-group" id="stage3-activities-group">
+                        <button class="btn-label-activity active" data-activity="VERTICAL" style="border-left:3px solid #ff9d1c;">
+                          ➕ VERTICAL
+                        </button>
+                        <button class="btn-label-activity" data-activity="HORIZONTAL" style="border-left:3px solid #38bdf8;">
+                          ➕ HORIZONTAL
+                        </button>
+                      </div>
+                      <button id="btn-autofill-lab1" class="hx-btn hx-btn--sage btn-autofill-lab1" style="font-size:11px; padding:4px 10px;" data-i18n="labeler.btnAutofill">
+                        ✨ Autofill lab 1 Annotations
+                      </button>
+                      <button id="btn-reset-labeler" class="hx-btn btn-reset-labeler" style="font-size:11px; padding:4px 10px;" title="Reset annotations" data-i18n="labeler.btnClear">
+                        🔄 Reset / Clear
+                      </button>
+                    </div>
+
+                    <span style="font-size:10.5px; color:var(--ink-3);" data-i18n="labeler.convention">Ends-at convention (-1 and label ID)</span>
+                  </div>
+
+                  <!-- Waveform Canvas Box -->
+                  <div class="waveform-canvas-box hotspot-target" id="anno-waveform-container" title="Click on waveform to mark start (-1) and end">
+                    <canvas id="anno-waveform-canvas" class="waveform-canvas" width="740" height="200"></canvas>
+                    <div id="anno-scrubber-line" class="scrubber-line"></div>
+                  </div>
+
+                  <div id="anno-step-instruction" class="anno-instruction-box" data-i18n="labeler.promptDefault">
+                    Select VERTICAL or HORIZONTAL above. Then, click on the signal waveform to mark initiation (-1) and end of the activity.
+                  </div>
+
+                  <!-- Authentic Ends-At Change Points Table -->
+                  <div class="anno-table-container">
+                    <table class="paper-data-table anno-table">
+                      <thead>
+                        <tr>
+                          <th data-i18n="labeler.thTime">timestamp (s)</th>
+                          <th data-i18n="labeler.thLabel">left_label</th>
+                          <th data-i18n="labeler.thCp">change_point_name</th>
+                          <th data-i18n="labeler.thRef">sensor_ref</th>
+                        </tr>
+                      </thead>
+                      <tbody id="anno-table-body">
+                        <tr><td colspan="4" style="text-align:center; color:var(--ink-3);" data-i18n="labeler.emptyState">No annotations recorded yet. Select an activity above and click the waveform.</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+                    <button id="stage3-next-btn" class="hx-btn hx-btn--primary" style="display:none;">
+                      <span data-i18n="labeler.btnAdvance">💾 Save Annotations (eval [all] [02]_Ann_lab 1.csv) &amp; Advance ➜</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------------------------------------------
+               STAGE 4: HIAAC-Rec-Viewer (Multi-Annotator Inspection & Consensus)
+               ------------------------------------------------------------- -->
+          <div class="stage-pane" data-stage="4">
+            <div class="viewer-window">
+              <!-- Header -->
+              <div class="viewer-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img src="assets/images/hiaac-logo.svg" alt="HIAAC" style="height:24px;" />
+                  <span style="font-size:12px; font-weight:700;">HIAAC-REC VIEWER</span>
+                  <span style="font-size:10px; color:var(--ink-3);" data-i18n="viewer.subTitle">| Multi-Annotator Inspection &amp; Consensus</span>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:14px; font-size:11px;">
+                  <span data-i18n="viewer.sessionLabel">Session: <strong>eval [all] [02]</strong></span>
+                  <span data-i18n="viewer.sensorLabel">Sensor: <strong>Accelerometer (Right Hand)</strong></span>
+                </div>
+              </div>
+
+              <!-- Main Body -->
+              <div class="viewer-body">
+                <!-- Controls Bar: Annotator Checkboxes & Consensus Algorithm -->
+                <div class="viewer-toolbar">
+                  <div class="viewer-annotators-select">
+                    <span class="hx-label" style="margin-bottom:0;" data-i18n="viewer.annotators">ANNOTATORS:</span>
+                    <label class="viewer-chk-item">
+                      <input type="checkbox" id="chk-lab1" checked />
+                      <span class="track-color-indicator" style="background:#ff9d1c;"></span>
+                      <span data-i18n="viewer.lab1Label">lab 1 (You)</span>
+                    </label>
+                    <label class="viewer-chk-item">
+                      <input type="checkbox" id="chk-lab2" checked />
+                      <span class="track-color-indicator" style="background:#eab308;"></span>
+                      <span data-i18n="viewer.lab2Label">lab 2 (Annotator 2)</span>
+                    </label>
+                    <label class="viewer-chk-item">
+                      <input type="checkbox" id="chk-lab3" checked />
+                      <span class="track-color-indicator" style="background:#a855f7;"></span>
+                      <span data-i18n="viewer.lab3Label">lab 3 (Annotator 3)</span>
+                    </label>
+                  </div>
+
+                  <div class="viewer-consensus-select" id="viewer-consensus-select">
+                    <span class="hx-label" style="margin-bottom:0;" data-i18n="viewer.consolidation">CONSOLIDATION:</span>
+                    <div class="radio-pills">
+                      <button class="radio-pill consensus-mode-pill active" data-mode="union" data-i18n="viewer.union">Union</button>
+                      <button class="radio-pill consensus-mode-pill" data-mode="intersection" data-i18n="viewer.intersection">Intersection</button>
+                      <button class="radio-pill consensus-mode-pill" data-mode="majority" data-i18n="viewer.majority">Majority</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Synchronized Layout: Video + Multi-Track Waveform -->
+                <div class="viewer-main-grid">
+                  <!-- Video Player -->
+                  <div class="viewer-video-pane">
+                    <div style="font-size:10px; font-weight:700; color:var(--ink-2); letter-spacing:0.05em; text-transform:uppercase;">
+                      <span data-i18n="viewer.camTitle">Camera (Synchronized Video)</span>
+                    </div>
+                    <div class="viewer-video-box">
+                      <video id="viewer-video" src="assets/videos/eval02_masked_blur.mp4" poster="assets/images/eval02_poster_masked_blur.jpg" playsinline muted loop></video>
+                    </div>
+                    <div class="viewer-video-controls">
+                      <div class="video-ctrl-top-row">
+                        <button id="viewer-play-btn" class="btn-play-pause" title="Play / Pause">▶</button>
+                        <input type="range" id="viewer-scrubber-slider" class="video-scrubber-slider" min="0" max="24" step="0.05" value="0" />
+                      </div>
+                      <div class="video-ctrl-time-row">
+                        <span class="ctrl-time-label" data-i18n="viewer.timeLabel">Time</span>
+                        <span id="viewer-time-display" class="anno-time-display">00:00.0 / 00:24.0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Unified Multimodal Timeline & Annotator Tracks -->
+                  <div class="viewer-tracks-pane">
+                    <div class="viewer-tracks-board" id="viewer-tracks-board">
+                      <div class="viewer-board-header">
+                        <div class="board-header-left">
+                          <span class="board-header-title" data-i18n="viewer.sensorHeader">ACCELEROMETER (RIGHT HAND) — 100 HZ &bull; MULTI-ANNOTATOR CONSENSUS</span>
+                        </div>
+                        <div class="board-header-legend">
+                          <span class="legend-axis"><span class="dot-axis" style="background:#ff9d1c;"></span> X</span>
+                          <span class="legend-axis"><span class="dot-axis" style="background:#38bdf8;"></span> Y</span>
+                          <span class="legend-axis"><span class="dot-axis" style="background:#a855f7;"></span> Z (rel. 0g)</span>
+                          <span class="time-range-tag">0.0s — 24.0s</span>
+                        </div>
+                      </div>
+
+                      <div class="viewer-timeline-container" id="viewer-timeline-container">
+                        <!-- Orange Scrubber Needle Line transpassing from the top of the sensor through all 3 annotations and consensus -->
+                        <div id="viewer-scrubber-line" class="unified-scrubber-line">
+                          <div class="scrubber-head-badge" id="scrubber-badge">00:00.0</div>
+                        </div>
+
+                        <!-- Row 0: Sensor Waveform Canvas -->
+                        <div class="annotator-track-row track-row-sensor" id="row-track-sensor">
+                          <div class="track-label">
+                            <span class="track-label-name">Accelerometer</span>
+                            <span class="track-sub">Right Hand (100 Hz)</span>
+                            <span class="track-telemetry-badge">3-Axis Telemetry</span>
+                          </div>
+                          <div class="waveform-canvas-box" id="viewer-waveform-box" title="Click to seek timestamp">
+                            <canvas id="viewer-waveform-canvas" class="waveform-canvas"></canvas>
+                          </div>
+                        </div>
+
+                        <!-- Row 1: lab 1 (You) -->
+                        <div class="annotator-track-row" id="row-track-lab1">
+                          <div class="track-label">
+                            <div class="track-label-header">
+                              <span class="track-color-indicator" style="background:#ff9d1c;"></span>
+                              <span class="track-label-name">lab 1</span>
+                            </div>
+                            <span class="track-sub" data-i18n="viewer.lab1Role">Primary (You)</span>
+                          </div>
+                          <div id="lane-annotator-lab1" class="track-timeline-bar" title="Click to seek timestamp"></div>
+                        </div>
+
+                        <!-- Row 2: lab 2 (Annotator 2) -->
+                        <div class="annotator-track-row" id="row-track-lab2">
+                          <div class="track-label">
+                            <div class="track-label-header">
+                              <span class="track-color-indicator" style="background:#eab308;"></span>
+                              <span class="track-label-name">lab 2</span>
+                            </div>
+                            <span class="track-sub" data-i18n="viewer.lab2Role">Annotator 2</span>
+                          </div>
+                          <div id="lane-annotator-lab2" class="track-timeline-bar" title="Click to seek timestamp"></div>
+                        </div>
+
+                        <!-- Row 3: lab 3 (Annotator 3) -->
+                        <div class="annotator-track-row" id="row-track-lab3">
+                          <div class="track-label">
+                            <div class="track-label-header">
+                              <span class="track-color-indicator" style="background:#a855f7;"></span>
+                              <span class="track-label-name">lab 3</span>
+                            </div>
+                            <span class="track-sub" data-i18n="viewer.lab3Role">Annotator 3</span>
+                          </div>
+                          <div id="lane-annotator-lab3" class="track-timeline-bar" title="Click to seek timestamp"></div>
+                        </div>
+
+                        <!-- Row 4: Consolidated Consensus Track -->
+                        <div class="annotator-track-row consensus-row" id="row-track-consensus">
+                          <div class="track-label consensus-label">
+                            <span class="track-label-name" style="color:var(--orange);" id="consensus-track-title">Consensus (Union)</span>
+                            <span class="track-sub" data-i18n="viewer.consensusTrackSub">Consolidated Track</span>
+                          </div>
+                          <div id="lane-consensus" class="track-timeline-bar consensus-track" title="Click to seek timestamp"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Action Banner -->
+                <div class="celebration-banner">
+                  <div>
+                    <div class="celebration-title" data-i18n="viewer.bannerTitle">HIAAC-Rec-Viewer &bull; Multi-Annotator Consensus Analysis</div>
+                    <div style="font-size:12px; color:var(--ink-2);" data-i18n="viewer.bannerDesc">
+                      Observe real-time temporal alignment between synchronized video, 100 Hz accelerometer telemetry, and multi-annotator intervals. Adjust active annotators, change consensus strategy, or finalize the pipeline to export.
+                    </div>
+                  </div>
+                  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                    <button id="btn-restart-demo" class="hx-btn" data-i18n="viewer.btnRestart">🔄 Restart Demo</button>
+                    <button id="btn-edit-annotations" class="hx-btn" data-i18n="viewer.btnEditAnnotations">✏️ Edit Annotations</button>
+                    <button id="btn-finish-demo" class="hx-btn hx-btn--primary hotspot-target" data-i18n="viewer.btnFinish">
+                      <span class="hotspot-pulse"></span>
+                      <span data-i18n="viewer.btnFinish">🏁 Finish &amp; Export</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================== SYSTEM ARCHITECTURE ====================== -->
+  <section class="section" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="arch.tag">System Architecture</span>
+        <h2 class="section-title" data-i18n="arch.title">The Integrated Toolkit Pipeline</h2>
+        <p class="section-subtitle" data-i18n="arch.subtitle">
+          A modular architecture for synchronized multimodal acquisition, automated anonymization, and collaborative labeling. Explore the interactive carousel below with real screenshots from the research paper.
+        </p>
+      </div>
+
+      <!-- Interactive Pipeline Stepper Header (the bold highlight passes between them) -->
+      <div class="arch-stepper-header" role="tablist">
+        <button class="arch-step-btn active" data-slide="0" role="tab" aria-selected="true">
+          <span class="arch-step-num">1</span>
+          <span class="arch-step-name" data-i18n="arch.step1">App</span>
+        </button>
+        <span class="arch-step-arrow">➜</span>
+        <button class="arch-step-btn" data-slide="1" role="tab" aria-selected="false">
+          <span class="arch-step-num">2</span>
+          <span class="arch-step-name" data-i18n="arch.step2">SyncServer</span>
+        </button>
+        <span class="arch-step-arrow">➜</span>
+        <button class="arch-step-btn" data-slide="2" role="tab" aria-selected="false">
+          <span class="arch-step-num">3</span>
+          <span class="arch-step-name" data-i18n="arch.step3">Face Masking</span>
+        </button>
+        <span class="arch-step-arrow">➜</span>
+        <button class="arch-step-btn" data-slide="3" role="tab" aria-selected="false">
+          <span class="arch-step-num">4</span>
+          <span class="arch-step-name" data-i18n="arch.step4">Labeler</span>
+        </button>
+        <span class="arch-step-arrow">➜</span>
+        <button class="arch-step-btn" data-slide="4" role="tab" aria-selected="false">
+          <span class="arch-step-num">5</span>
+          <span class="arch-step-name" data-i18n="arch.step5">Viewer</span>
+        </button>
+      </div>
+
+      <!-- Carousel Stage Box -->
+      <div class="arch-carousel-container">
+        <button class="arch-nav-btn prev-btn" id="arch-prev-btn" aria-label="Previous Slide">❮</button>
+        
+        <div class="arch-carousel-viewport">
+          <div class="arch-carousel-track" id="arch-carousel-track">
+            
+            <!-- Slide 0: App -->
+            <div class="arch-slide active" data-slide-index="0">
+              <div class="arch-slide-media">
+                <img src="assets/images/tools/tool_app.png?v=3.1" alt="HIAAC-Rec-App Mobile Interface" class="arch-slide-img" />
+                <div class="arch-media-caption">
+                  <span data-i18n="arch.s1Caption"><strong>Figure 3:</strong> Smartphone acquisition UI (metadata setup, multi-sensor configuration up to 200 Hz, and experiment data statistics).</span>
+                </div>
+              </div>
+              <div class="arch-slide-content">
+                <div class="arch-slide-header">
+                  <span class="arch-slide-badge" data-i18n="arch.s1Port">Android (Java / CameraX) • Mobile Client</span>
+                  <h3 class="arch-slide-title" data-i18n="arch.s1Title">HIAAC-Rec-App</h3>
+                </div>
+                <p class="arch-slide-desc" data-i18n="arch.s1Desc">
+                  The mobile acquisition frontend. Directly interfaces with Android hardware sensor APIs using dedicated high-priority threads (AIDL), capturing inertial (accelerometer, gyroscope, linear acceleration, magnetometer, gravity), environmental (ambient temperature, light, proximity), and location (GPS) data at configurable rates from 1 Hz up to 200 Hz, synchronized with nominal 30 FPS video via CameraX. Implements Cristian's algorithm client pings to establish millisecond-precision clock offset before recording.
+                </p>
+                <ul class="arch-slide-bullets">
+                  <li data-i18n="arch.s1Bullet1">Configurable sampling rates up to 200 Hz via dedicated background threads without dropping camera frames.</li>
+                  <li data-i18n="arch.s1Bullet2">Quality assurance statistics screen displays expected vs collected samples, valid vs discarded ratios, and clock jitter.</li>
+                  <li data-i18n="arch.s1Bullet3">Continuous device telemetry profiling (CPU usage %, RAM memory, and battery capacity).</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 1: SyncServer -->
+            <div class="arch-slide" data-slide-index="1">
+              <div class="arch-slide-media">
+                <img src="assets/images/tools/tool_server.png?v=3.1" alt="HIAAC-Rec-SyncServer Interface" class="arch-slide-img" />
+                <div class="arch-media-caption">
+                  <span data-i18n="arch.s2Caption"><strong>Figure 6:</strong> Server interface for experiment monitoring, data inspection, and synchronized sensor-video playback.</span>
+                </div>
+              </div>
+              <div class="arch-slide-content">
+                <div class="arch-slide-header">
+                  <span class="arch-slide-badge" data-i18n="arch.s2Port">Node.js Preprocessor (:8080) • Python Postprocessor (:7998)</span>
+                  <h3 class="arch-slide-title" data-i18n="arch.s2Title">HIAAC-Rec-SyncServer</h3>
+                </div>
+                <p class="arch-slide-desc" data-i18n="arch.s2Desc">
+                  The central synchronization and automated processing backend. The Node.js Preprocessor (:8080) manages experiment configurations, provides Cristian's algorithm reference clock endpoint, receives multi-device uploads, and renders an on-site participant inspection portal with D3.js. The Python Postprocessor daemon (:7998) cleans raw CSVs, trims sensor streams to exact video start/end boundaries, shifts the timeline to video start (t = 0), and triggers automated face anonymization.
+                </p>
+                <ul class="arch-slide-bullets">
+                  <li data-i18n="arch.s2Bullet1">Preprocessor REST APIs (/api/file, /api/video, /api/time) handle authentication and multi-device ingestion.</li>
+                  <li data-i18n="arch.s2Bullet2">Postprocessor watchdog trims sensor records to exact video boundaries and standardizes per-sensor CSVs.</li>
+                  <li data-i18n="arch.s2Bullet3">Web inspection portal enables immediate synchronized playback for on-site participant verification and consent.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 2: Face Masking Studio -->
+            <div class="arch-slide" data-slide-index="2">
+              <div class="arch-slide-media">
+                <img src="assets/images/tools/tool_masking.png?v=3.1" alt="HIAAC-Rec-Masking-Studio Interface" class="arch-slide-img" />
+                <div class="arch-media-caption">
+                  <span data-i18n="arch.s3Caption"><strong>Figure 8:</strong> HIAAC-Rec-Masking-Studio manual auditing interface and timeline tracking.</span>
+                </div>
+              </div>
+              <div class="arch-slide-content">
+                <div class="arch-slide-header">
+                  <span class="arch-slide-badge" data-i18n="arch.s3Port">FastAPI • ONNX Runtime / OpenCV (:8000)</span>
+                  <h3 class="arch-slide-title" data-i18n="arch.s3Title">HIAAC-Rec-Masking-Studio</h3>
+                </div>
+                <p class="arch-slide-desc" data-i18n="arch.s3Desc">
+                  Privacy-preserving video face anonymization tool combining deep-learning tracking with human verification. It runs an automatic head detector (<strong>YOLOv7-tiny-head ONNX</strong>) achieving 94.59% automatic masking coverage across 25 benchmarked videos, followed by keyframe auditing passes to guarantee full GDPR/LGPD compliance.
+                </p>
+                <ul class="arch-slide-bullets">
+                  <li data-i18n="arch.s3Bullet1">Multi-pass auditing trail: Pass 0 (automatic tracking) followed by reproducible manual review passes (Manual 1, Manual 2...).</li>
+                  <li data-i18n="arch.s3Bullet2">Track management allows ending, reactivating, and adjusting bounding boxes frame-by-frame.</li>
+                  <li data-i18n="arch.s3Bullet3">Render overlay modes: Gaussian blur, mosaic/pixelation, or opaque solid fill, with WebSocket progress streaming.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 3: Labeler -->
+            <div class="arch-slide" data-slide-index="3">
+              <div class="arch-slide-media">
+                <img src="assets/images/tools/tool_labeler.png?v=3.1" alt="HIAAC-Rec-Labeler Interface" class="arch-slide-img" />
+                <div class="arch-media-caption">
+                  <span data-i18n="arch.s4Caption"><strong>Figure 10:</strong> HIAAC-Rec-Labeler time-series annotation charts synchronized with video.</span>
+                </div>
+              </div>
+              <div class="arch-slide-content">
+                <div class="arch-slide-header">
+                  <span class="arch-slide-badge" data-i18n="arch.s4Port">Dash / Plotly • Python (:8050)</span>
+                  <h3 class="arch-slide-title" data-i18n="arch.s4Title">HIAAC-Rec-Labeler</h3>
+                </div>
+                <p class="arch-slide-desc" data-i18n="arch.s4Desc">
+                  Synchronized time-series annotation interface designed specifically for Human Activity Recognition (HAR). It renders panoramic and detailed zooming charts linked to video playback via a draggable orange time marker at millisecond precision, enabling annotators to inspect raw acceleration signatures while observing the participant's actions.
+                </p>
+                <ul class="arch-slide-bullets">
+                  <li data-i18n="arch.s4Bullet1">Standardized 'ends-at' convention (-1 for segment initiation/unassigned, activity label for termination).</li>
+                  <li data-i18n="arch.s4Bullet2">Dynamic activity label management via ⚙ gear button, persisted into session manifests and YAML config.</li>
+                  <li data-i18n="arch.s4Bullet3">Bidirectional timeline seeking: moving on the signal updates video frames instantaneously.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Slide 4: Viewer -->
+            <div class="arch-slide" data-slide-index="4">
+              <div class="arch-slide-media">
+                <img src="assets/images/tools/tool_viewer.png?v=3.1" alt="HIAAC-Rec-Viewer Multi-Annotator Consensus" class="arch-slide-img" />
+                <div class="arch-media-caption">
+                  <span data-i18n="arch.s5Caption"><strong>Figure 11:</strong> HIAAC-Rec-Viewer multi-annotator alignment and consensus evaluation.</span>
+                </div>
+              </div>
+              <div class="arch-slide-content">
+                <div class="arch-slide-header">
+                  <span class="arch-slide-badge" data-i18n="arch.s5Port">Dash / Plotly • Python (:8052)</span>
+                  <h3 class="arch-slide-title" data-i18n="arch.s5Title">HIAAC-Rec-Viewer</h3>
+                </div>
+                <p class="arch-slide-desc" data-i18n="arch.s5Desc">
+                  Multi-annotator inspection and consensus consolidation environment. Allows loading independent annotation files from multiple researchers, comparing alignment against the synchronized video and sensor signals, and computing consolidated ground-truth tracks using configurable agreement algorithms.
+                </p>
+                <ul class="arch-slide-bullets">
+                  <li data-i18n="arch.s5Bullet1">Three consensus strategies: Union (broadest coverage), Intersection (strict agreement), and Majority voting.</li>
+                  <li data-i18n="arch.s5Bullet2">Visual disagreement highlighting in color-coded bands to detect ambiguous movement transitions across annotators.</li>
+                  <li data-i18n="arch.s5Bullet3">One-click export of consolidated session packages with manifest, video, sensors, and labels.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="arch-nav-btn next-btn" id="arch-next-btn" aria-label="Next Slide">❯</button>
+      </div>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="arch-carousel-dots" id="arch-carousel-dots">
+        <button class="arch-dot active" data-slide="0" aria-label="Go to Slide 1"></button>
+        <button class="arch-dot" data-slide="1" aria-label="Go to Slide 2"></button>
+        <button class="arch-dot" data-slide="2" aria-label="Go to Slide 3"></button>
+        <button class="arch-dot" data-slide="3" aria-label="Go to Slide 4"></button>
+        <button class="arch-dot" data-slide="4" aria-label="Go to Slide 5"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== EMPIRICAL VALIDATION (FROM PAPER) ====================== -->
+  <section class="section section--alt" id="validation">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="val.tag">Empirical Results</span>
+        <h2 class="section-title" data-i18n="val.title">Experimental Validation from the Paper</h2>
+        <p class="section-subtitle" data-i18n="val.subtitle">
+          Quantitative and qualitative evaluations of temporal synchronization and face anonymization 
+          conducted with five body-worn smartphones and a dedicated video device.
+        </p>
+      </div>
+
+      <div class="validation-dual-grid">
+        <!-- Validation A: Synchronization -->
+        <div class="validation-card">
+          <h3 class="validation-card-title">
+            <span data-i18n="val.tabSync">⏱️ Inter-Device Temporal Synchronization</span>
+          </h3>
+          <p class="validation-card-desc">
+            Five smartphones were taped into a rigid stack (Annotator, Right Pocket, Left Pocket, Right Hand, Crossbody Bag) 
+            and subjected to identical physical motion (horizontal displacement, orientation changes, dragging, and lifting) 
+            at 10Hz and 100Hz, while video was recorded simultaneously.
+          </p>
+
+          <div class="academic-figure-box">
+            <img src="assets/images/fig_visao_geral.png" alt="Figure 15: Linear acceleration magnitude over full recording" />
+            <div class="figure-caption" data-i18n="val.figSyncCap">
+              <strong>Figure 15:</strong> Linear acceleration magnitude recorded by the Right Pocket device over the 100Hz run (17 min). 
+              Annotated activity windows correspond to controlled displacement events separated by rest.
+            </div>
+          </div>
+
+          <div class="paper-table-wrapper">
+            <table class="paper-data-table">
+              <thead>
+                <tr>
+                  <th data-i18n="val.thPlacement">Device Placement</th>
+                  <th data-i18n="val.thRate">Rate (fs)</th>
+                  <th data-i18n="val.thLag">Linear Accel Mean Lag</th>
+                  <th data-i18n="val.thJitter">Sync Jitter</th>
+                  <th data-i18n="val.thGyro">Gyro Mean Lag</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Annotator</strong></td>
+                  <td>100 Hz</td>
+                  <td>-3.00 ms</td>
+                  <td>2.33 ms</td>
+                  <td>-0.25 ms</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>Right Pocket (Ref)</strong></td>
+                  <td>100 Hz</td>
+                  <td>0.00 ms</td>
+                  <td>0.00 ms</td>
+                  <td>0.00 ms</td>
+                </tr>
+                <tr>
+                  <td><strong>Left Pocket</strong></td>
+                  <td>100 Hz</td>
+                  <td>-3.75 ms</td>
+                  <td>2.43 ms</td>
+                  <td>-1.50 ms</td>
+                </tr>
+                <tr>
+                  <td><strong>Right Hand</strong></td>
+                  <td>100 Hz</td>
+                  <td>-0.38 ms</td>
+                  <td>1.30 ms</td>
+                  <td>-0.75 ms</td>
+                </tr>
+                <tr>
+                  <td><strong>Crossbody Bag</strong></td>
+                  <td>100 Hz</td>
+                  <td>-1.38 ms</td>
+                  <td>2.50 ms</td>
+                  <td>-0.38 ms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:11.5px; color:var(--ink-2); margin-top:12px; line-height:1.5;" data-i18n="val.keySync">
+            <strong>Key Finding:</strong> Across all annotated windows, the largest absolute mean lag is only <strong>3.75 ms</strong> 
+            (well below half a sampling period $T_s / 2 = 5\text{ ms}$ at 100Hz). Furthermore, comparing waveforms at the beginning 
+            and end of the collection confirms <strong>zero relative drift</strong> over time.
+          </p>
+        </div>
+
+        <!-- Validation B: Face Anonymization -->
+        <div class="validation-card">
+          <h3 class="validation-card-title">
+            <span data-i18n="val.tabMask">🎭 Face Anonymization Coverage & Auditing</span>
+          </h3>
+          <p class="validation-card-desc">
+            Evaluated on 25 recordings (1,080,530 reference bounding boxes) processed through four successive stages: 
+            Pass 0 automated tracking (YOLOv7-tiny-head), two independent annotator review passes, and final validation.
+          </p>
+
+          <div class="academic-figure-box">
+            <img src="assets/images/qualitative_all_models.png" alt="Figure 12: Qualitative comparison of masking approaches" />
+            <div class="figure-caption" data-i18n="val.figMaskCap">
+              <strong>Figure 12:</strong> Qualitative comparison across models: Manual label, YOLOv7-tiny-head (tight head masks), 
+              YOLOv11m, YOLOv26m-pose, YOLOv11x-pose, and MediaPipe (frontal only).
+            </div>
+          </div>
+
+          <div class="paper-table-wrapper">
+            <table class="paper-data-table">
+              <thead>
+                <tr>
+                  <th data-i18n="val.thStage">Pipeline Stage</th>
+                  <th data-i18n="val.thCoverage">Masking Coverage</th>
+                  <th data-i18n="val.thMissing">Missing Boxes</th>
+                  <th data-i18n="val.thStatus">Auditing Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-row">
+                  <td><strong>Automatic (YOLOv7-tiny)</strong></td>
+                  <td><strong>94.59 %</strong></td>
+                  <td>61,691</td>
+                  <td>Pass 0 (Auto-track)</td>
+                </tr>
+                <tr>
+                  <td><strong>+ Annotator 1</strong></td>
+                  <td>98.53 %</td>
+                  <td>18,161</td>
+                  <td>Manual Review 1</td>
+                </tr>
+                <tr>
+                  <td><strong>+ Annotator 2</strong></td>
+                  <td>99.73 %</td>
+                  <td>4,723</td>
+                  <td>Manual Review 2</td>
+                </tr>
+                <tr>
+                  <td><strong>Final (Validated Reference)</strong></td>
+                  <td>100.00 %</td>
+                  <td>0</td>
+                  <td>Full Agreement</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="font-size:11.5px; color:var(--ink-2); margin-top:12px; line-height:1.5;" data-i18n="val.keyMask">
+            <strong>Key Finding:</strong> Automatic detection recovers <strong>94.59%</strong> of all participant faces at 12.7 FPS, 
+            while successive human auditing passes progressively eliminate missing detections to guarantee GDPR/LGPD compliance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== REPRODUCIBILITY & CITATION ====================== -->
+  <section class="section" id="reproducibility">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="repro.tag">Reproducibility & Citation</span>
+        <h2 class="section-title" data-i18n="repro.title">Open-Source Code & Paper Citation</h2>
+        <p class="section-subtitle" data-i18n="repro.subtitle">
+          All toolkit components, orchestration scripts, and validation notebooks are released under the MIT license.
+        </p>
+      </div>
+
+      <div class="repro-terminal-grid">
+        <!-- Terminal 1: Quick Start Orchestrator -->
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">bash — ./run_all.sh</div>
+            <button class="terminal-btn-copy btn-copy-code" data-copy-target="code-snippet-1" title="Copy to clipboard">
+              <span class="copy-icon">📋</span> <span data-i18n="repro.copyBtn">Copy</span>
+            </button>
+          </div>
+          <div class="terminal-body">
+            <pre id="code-snippet-1"><code><span class="term-comment"># 1. Clone repository &amp; setup virtual environment</span>
+<span class="term-cmd">git clone</span> https://github.com/H-IAAC/HIAAC-Toolkit.git
+<span class="term-cmd">cd</span> HIAAC-Toolkit
+<span class="term-cmd">python3.12</span> -m venv .venv &amp;&amp; <span class="term-cmd">source</span> .venv/bin/activate
+<span class="term-cmd">pip</span> install -r requirements_cpu.txt
+
+<span class="term-comment"># 2. Boot all 5 microservices in topological sequence</span>
+<span class="term-cmd">./run_all.sh</span> start
+
+<span class="term-comment"># 3. Verify health table and discover LAN IP for mobile</span>
+<span class="term-cmd">./run_all.sh</span> status</code></pre>
+          </div>
+        </div>
+
+        <!-- Terminal 2: BibTeX Citation -->
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">hiaacrec2026.bib</div>
+            <button class="terminal-btn-copy btn-copy-code" data-copy-target="bibtex-code" title="Copy to clipboard">
+              <span class="copy-icon">📋</span> <span data-i18n="repro.copyBtn">Copy</span>
+            </button>
+          </div>
+          <div class="terminal-body">
+            <pre id="bibtex-code"><code><span class="bib-tag">@article</span>{<span class="bib-key">hiaacrec2026</span>,
+  <span class="bib-prop">title</span>     = {<span class="bib-val">HIAAC-Rec: An Open-Source Toolkit for Synchronized Multimodal Data Collection, Annotation, and Face Anonymization</span>},
+  <span class="bib-prop">author</span>    = {<span class="bib-val">Moura, Beatriz V. P. and Nunes, Marcos M. and da Luz, Gustavo P. C. P. and Sim{\~o}es, Miguel B. and Wu, Victor and Silva, Nicolas H. and Vargas, Jaime A. D. and Mu{\~n}oz, Amparo D. and Moraes, Saulo A. and Santos, Felipe A. de Paula and Grassiotto, Fabio and Rocha, Anderson and Boccato, Levy and Borin, Edson</span>},
+  <span class="bib-prop">journal</span>   = {<span class="bib-val">arXiv preprint</span>},
+  <span class="bib-prop">year</span>      = {<span class="bib-val">2026</span>},
+  <span class="bib-prop">publisher</span> = {<span class="bib-val">H.IAAC, UNICAMP, Instituto Eldorado</span>}
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== DOWNLOAD SIMULATION MODAL ====================== -->
+  <div id="download-modal" class="modal-backdrop" aria-modal="true" role="dialog">
+    <div class="pkg-modal-dialog">
+      <div class="pkg-header">
+        <div class="pkg-header-left">
+          <span class="pkg-badge" data-i18n="viewer.cardCompleteTitle">✓ Full Dataset Lifecycle Verified</span>
+          <h3 class="pkg-title" data-i18n="pkg.title">📦 Research Dataset Package Ready</h3>
+        </div>
+        <button id="modal-close-btn" class="pkg-close-btn" title="Close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Explaining that this is an example output of the toolkit pipeline -->
+      <div class="pkg-callout" data-i18n="viewer.cardCompleteDesc">
+        Evaluation session <code>eval [all] [02]</code> successfully traversed synchronized mobile collection, privacy-preserving face anonymization, ends-at labeling, and multi-annotator consensus consolidation.
+      </div>
+
+      <!-- Metadata Grid -->
+      <div class="pkg-meta-grid">
+        <div class="pkg-meta-item">
+          <span class="pkg-meta-label">SESSION</span>
+          <span class="pkg-meta-val" data-i18n="pkg.metaSession">Session ID: eval [all] [02]</span>
+        </div>
+        <div class="pkg-meta-item">
+          <span class="pkg-meta-label">HARDWARE</span>
+          <span class="pkg-meta-val" data-i18n="pkg.metaHardware">Hardware: Samsung Galaxy S21 FE</span>
+        </div>
+        <div class="pkg-meta-item">
+          <span class="pkg-meta-label">SYNC QUALITY</span>
+          <span class="pkg-meta-val" data-i18n="pkg.metaSync">Max Mean Lag: 3.75 ms (No drift)</span>
+        </div>
+        <div class="pkg-meta-item">
+          <span class="pkg-meta-label">PRIVACY</span>
+          <span class="pkg-meta-val" data-i18n="pkg.metaPrivacy">Privacy: 100% Face Anonymized</span>
+        </div>
+      </div>
+
+      <!-- File Tree -->
+      <div class="pkg-file-tree" id="pkg-file-tree-container">
+        <div class="pkg-tree-root">
+          <div class="pkg-tree-root-left">
+            <span class="tree-icon">📁</span>
+            <span class="pkg-tree-name" id="pkg-tree-root-name">eval_all_02_dataset_blur.zip</span>
+          </div>
+          <span class="pkg-tree-tag" id="pkg-tree-total-tag">31 arquivos &bull; 7.5 MB</span>
+        </div>
+        
+        <!-- Root Manifest -->
+        <div class="pkg-tree-file-row">
+          <span class="tree-line">├──</span>
+          <span class="tree-file-icon">📄</span>
+          <span class="pkg-tree-file">session_manifest.json</span>
+          <span class="pkg-tree-size">(2.1 KB)</span>
+          <span class="pkg-tree-desc" data-i18n="pkg.secManifest">Metadados, Registro de Sensores &amp; Proveniência</span>
+        </div>
+
+        <!-- videos/ Folder -->
+        <details open class="pkg-tree-details">
+          <summary class="pkg-tree-summary">
+            <span class="tree-line">├──</span>
+            <span class="tree-dir-icon">📁</span>
+            <span class="pkg-tree-dir">videos/</span>
+            <span class="pkg-tree-folder-count">(4 arquivos)</span>
+          </summary>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📹</span>
+            <span class="pkg-tree-file">video_8607749861268564464.mp4</span>
+            <span class="pkg-tree-size">(2.9 MB)</span>
+            <span class="tree-badge-placement">Raw Video</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">video_8607749861268564464.video</span>
+            <span class="pkg-tree-size">(160 B)</span>
+            <span class="tree-badge-placement">Metadata</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">🎬</span>
+            <span class="pkg-tree-file" id="pkg-tree-video-name">eval [all] [02]_masked_blur.mp4</span>
+            <span class="pkg-tree-size">(3.1 MB)</span>
+            <span class="pkg-tree-desc" data-i18n="pkg.secVideo">Vídeo Sincronizado &amp; Anonimizado</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   └──</span>
+            <span class="tree-file-icon">📄</span>
+            <span class="pkg-tree-file">masks_data/dataset:eval [all] [02]_pass0.jsonl</span>
+            <span class="pkg-tree-size">(100 KB)</span>
+            <span class="pkg-tree-desc">Bounding Boxes de Rostos (YOLOv7)</span>
+          </div>
+        </details>
+
+        <!-- sensors/ Folder (15 streams across 5 devices) -->
+        <details open class="pkg-tree-details">
+          <summary class="pkg-tree-summary">
+            <span class="tree-line">├──</span>
+            <span class="tree-dir-icon">📁</span>
+            <span class="pkg-tree-dir">sensors/</span>
+            <span class="pkg-tree-folder-count" data-i18n="pkg.secSensors">(15 fluxos inerciais CSV &bull; 100 Hz padronizados)</span>
+          </summary>
+          <!-- Right Hand (Primary Device) -->
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Accelerometer_Right Hand.csv</span>
+            <span class="pkg-tree-size">(206 KB)</span>
+            <span class="tree-badge-placement">Right Hand</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Gyroscope_Right Hand.csv</span>
+            <span class="pkg-tree-size">(215 KB)</span>
+            <span class="tree-badge-placement">Right Hand</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">LinearAccelerometer_Right Hand.csv</span>
+            <span class="pkg-tree-size">(210 KB)</span>
+            <span class="tree-badge-placement">Right Hand</span>
+          </div>
+          <!-- Left Pocket -->
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Accelerometer_Left Pocket.csv</span>
+            <span class="pkg-tree-size">(206 KB)</span>
+            <span class="tree-badge-placement">Left Pocket</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Gyroscope_Left Pocket.csv</span>
+            <span class="pkg-tree-size">(215 KB)</span>
+            <span class="tree-badge-placement">Left Pocket</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">LinearAccelerometer_Left Pocket.csv</span>
+            <span class="pkg-tree-size">(211 KB)</span>
+            <span class="tree-badge-placement">Left Pocket</span>
+          </div>
+          <!-- Right Pocket -->
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Accelerometer_Right Pocket.csv</span>
+            <span class="pkg-tree-size">(206 KB)</span>
+            <span class="tree-badge-placement">Right Pocket</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Gyroscope_Right Pocket.csv</span>
+            <span class="pkg-tree-size">(215 KB)</span>
+            <span class="tree-badge-placement">Right Pocket</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">LinearAccelerometer_Right Pocket.csv</span>
+            <span class="pkg-tree-size">(211 KB)</span>
+            <span class="tree-badge-placement">Right Pocket</span>
+          </div>
+          <!-- Backpack -->
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Accelerometer_Backpack.csv</span>
+            <span class="pkg-tree-size">(207 KB)</span>
+            <span class="tree-badge-placement">Backpack</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Gyroscope_Backpack.csv</span>
+            <span class="pkg-tree-size">(215 KB)</span>
+            <span class="tree-badge-placement">Backpack</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">LinearAccelerometer_Backpack.csv</span>
+            <span class="pkg-tree-size">(211 KB)</span>
+            <span class="tree-badge-placement">Backpack</span>
+          </div>
+          <!-- Annotator Placement -->
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Accelerometer_Annotator.csv</span>
+            <span class="pkg-tree-size">(207 KB)</span>
+            <span class="tree-badge-placement">Annotator</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">Gyroscope_Annotator.csv</span>
+            <span class="pkg-tree-size">(215 KB)</span>
+            <span class="tree-badge-placement">Annotator</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   └──</span>
+            <span class="tree-file-icon">📊</span>
+            <span class="pkg-tree-file">LinearAccelerometer_Annotator.csv</span>
+            <span class="pkg-tree-size">(211 KB)</span>
+            <span class="tree-badge-placement">Annotator</span>
+          </div>
+        </details>
+
+        <!-- raw_sensors/ Folder (5 devices) -->
+        <details open class="pkg-tree-details">
+          <summary class="pkg-tree-summary">
+            <span class="tree-line">├──</span>
+            <span class="tree-dir-icon">📁</span>
+            <span class="pkg-tree-dir">raw_sensors/</span>
+            <span class="pkg-tree-folder-count" data-i18n="pkg.secRawSensors">(5 logs brutos dos celulares &bull; 3.0 MB)</span>
+          </summary>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">02_eval_all_Right Hand__20240506.030611.csv</span>
+            <span class="pkg-tree-size">(604 KB)</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">02_eval_all_Left Pocket__20240506.030403.csv</span>
+            <span class="pkg-tree-size">(610 KB)</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">02_eval_all_Right Pocket__20240505.034233.csv</span>
+            <span class="pkg-tree-size">(612 KB)</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   ├──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">02_eval_all_Backpack__20240513.030536.csv</span>
+            <span class="pkg-tree-size">(610 KB)</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">│   └──</span>
+            <span class="tree-file-icon">📋</span>
+            <span class="pkg-tree-file">02_eval_all_Annotator__20240506.030434.csv</span>
+            <span class="pkg-tree-size">(609 KB)</span>
+          </div>
+        </details>
+
+        <!-- annotations/ Folder (6 files) -->
+        <details open class="pkg-tree-details">
+          <summary class="pkg-tree-summary">
+            <span class="tree-line">└──</span>
+            <span class="tree-dir-icon">📁</span>
+            <span class="pkg-tree-dir">annotations/</span>
+            <span class="pkg-tree-folder-count" data-i18n="pkg.secAnnotations">(6 arquivos CSV &bull; Anotadores &amp; Consensos)</span>
+          </summary>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    ├──</span>
+            <span class="tree-file-icon">🏷️</span>
+            <span class="pkg-tree-file">eval [all] [02]_Ann_lab 1.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Anotador 1 / Usuário</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    ├──</span>
+            <span class="tree-file-icon">🏷️</span>
+            <span class="pkg-tree-file">eval [all] [02]_Ann_lab 2.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Anotador 2</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    ├──</span>
+            <span class="tree-file-icon">🏷️</span>
+            <span class="pkg-tree-file">eval [all] [02]_Ann_lab 3.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Anotador 3</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    ├──</span>
+            <span class="tree-file-icon">⭐</span>
+            <span class="pkg-tree-file" id="pkg-tree-ann-name">eval [all] [02]_Ann_consensus_union.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Consenso Ativo</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    ├──</span>
+            <span class="tree-file-icon">⭐</span>
+            <span class="pkg-tree-file">eval [all] [02]_Ann_consensus_intersection.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Interseção</span>
+          </div>
+          <div class="pkg-tree-file-row">
+            <span class="tree-line">    └──</span>
+            <span class="tree-file-icon">⭐</span>
+            <span class="pkg-tree-file">eval [all] [02]_Ann_consensus_majority.csv</span>
+            <span class="pkg-tree-size">(1 KB)</span>
+            <span class="tree-badge-placement">Maioria</span>
+          </div>
+        </details>
+      </div>
+
+      <div class="pkg-footer">
+        <button class="hx-btn" id="modal-close-cancel-btn" data-i18n="pkg.btnClose">Close</button>
+        <button id="modal-confirm-btn" class="hx-btn hx-btn--primary">
+          <span data-i18n="pkg.btnDownload">⬇ Download Package (.zip)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <img src="assets/images/hiaac-logo.svg" alt="HIAAC" style="height:30px;" />
+            <span style="font-weight:700; font-size:13.5px;">HIAAC-REC TOOLKIT</span>
+          </div>
+          <p class="footer-desc" data-i18n="footer.desc">
+            Research toolkit developed for synchronized multimodal data collection, privacy-preserving face anonymization, 
+            and consensus-driven activity annotation. Supported by the Hub for Artificial Intelligence and Cognitive Architectures (H.IAAC), 
+            University of Campinas (UNICAMP), and Instituto de Pesquisas Eldorado.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-col-title">Institutions</div>
+            <ul class="footer-links">
+              <li><a href="https://www.unicamp.br" target="_blank" rel="noopener">Universidade Estadual de Campinas (UNICAMP)</a></li>
+              <li><a href="https://www.eldorado.org.br" target="_blank" rel="noopener">Instituto de Pesquisas Eldorado</a></li>
+              <li><a href="https://hiaac.unicamp.br" target="_blank" rel="noopener">H.IAAC Hub</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title" data-i18n="footer.navTitle">Navigation</div>
+            <ul class="footer-links">
+              <li><a href="#hero" data-i18n="nav.overview">Overview &amp; Abstract</a></li>
+              <li><a href="#interactive-demo" data-i18n="nav.demo">Interactive Dataset Flow</a></li>
+              <li><a href="#architecture" data-i18n="nav.arch">Five System Components</a></li>
+              <li><a href="#validation" data-i18n="nav.validation">Empirical Validation</a></li>
+              <li><a href="#reproducibility" data-i18n="nav.code">Reproducibility &amp; BibTeX</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footer.license">© 2026 H.IAAC, UNICAMP &amp; Instituto Eldorado • Licensed under the MIT License</div>
+        <div>Research paper: <em>"HIAAC-Rec: An Open-Source Toolkit for Synchronized Multimodal Data Collection, Annotation, and Face Anonymization"</em></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/mock-data.js?v=3.2"></script>
+  <script src="js/i18n.js?v=3.2"></script>
+  <script src="js/demo-flow.js?v=3.2"></script>
+  <script src="js/main.js?v=3.2"></script>
+</body>
+</html>
