@@ -713,7 +713,20 @@
                   </div>
 
                   <div class="viewer-consensus-select" id="viewer-consensus-select">
-                    <span class="hx-label" style="margin-bottom:0;" data-i18n="viewer.consolidation">CONSOLIDATION:</span>
+                    <div class="viewer-consensus-header">
+                      <span class="hx-label" style="margin-bottom:0;" data-i18n="viewer.consolidation">CONSOLIDATION:</span>
+                      <div class="hx-tooltip-wrapper" id="viewer-tooltip-wrapper">
+                        <button class="hx-help-icon" id="viewer-help-btn" type="button" aria-label="Consolidation help" title="Consolidation help">?</button>
+                        <div class="hx-tooltip-box" role="tooltip">
+                          <div style="font-weight:700; margin-bottom:6px; color:var(--ink);" data-i18n="viewer.helpTitle">Consolidation Methods</div>
+                          <ul style="padding-left:16px; margin:0 0 6px 0; display:flex; flex-direction:column; gap:4px;">
+                            <li><strong data-i18n="viewer.helpUnionLabel">Union:</strong> <span data-i18n="viewer.helpUnionDesc">Interval marked by at least 1 annotator (conflicts omitted).</span></li>
+                            <li><strong data-i18n="viewer.helpIntersectionLabel">Intersection:</strong> <span data-i18n="viewer.helpIntersectionDesc">Strict consensus — 100% agreement on exact same label.</span></li>
+                            <li><strong data-i18n="viewer.helpMajorityLabel">Majority:</strong> <span data-i18n="viewer.helpMajorityDesc">Consensus by vote — labeled if &gt;50% annotators agree.</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                     <div class="radio-pills">
                       <button class="radio-pill consensus-mode-pill active" data-mode="union" data-i18n="viewer.union">Union</button>
                       <button class="radio-pill consensus-mode-pill" data-mode="intersection" data-i18n="viewer.intersection">Intersection</button>

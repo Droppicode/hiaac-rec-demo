@@ -1683,6 +1683,21 @@ class HiaacDemoController {
       });
     });
 
+    // Consolidation Help Tooltip Toggle (for touch/click)
+    const helpBtn = document.getElementById("viewer-help-btn");
+    const tooltipWrapper = document.getElementById("viewer-tooltip-wrapper");
+    if (helpBtn && tooltipWrapper) {
+      helpBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        tooltipWrapper.classList.toggle("is-open");
+      });
+      document.addEventListener("click", (e) => {
+        if (!tooltipWrapper.contains(e.target)) {
+          tooltipWrapper.classList.remove("is-open");
+        }
+      });
+    }
+
     // Play/Pause
     if (playBtn && video) {
       playBtn.addEventListener("click", () => {
